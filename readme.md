@@ -237,6 +237,7 @@ $urls = $videoInfo->getVideoSrcs($streams[0]);
 
 - 获取视频地址的接口
   优酷的js代码在 [http://static.youku.com/h5/player/embed/unifull/unifull_.js](http://static.youku.com/h5/player/embed/unifull/unifull_.js)
+  
 ```
 相关:
 YKP.userCache{
