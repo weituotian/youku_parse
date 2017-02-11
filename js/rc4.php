@@ -55,3 +55,10 @@ $strBase64=base64_encode(rc4($pwd, $data));
 echo "<br>".$strBase64;
 //成功
 echo "<br>".urlencode($strBase64);
+
+echo "<br>解密sid和token:";
+$pwd = "becaf9be";
+$data = "NwXYSAUeIL7T2PnJ8eJxAdX2vRps1w3OWhs=";
+$result=rc4($pwd, base64_decode($data));
+var_dump($result);
+

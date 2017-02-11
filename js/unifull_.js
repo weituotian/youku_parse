@@ -536,11 +536,11 @@
             parse: function (a) {
                 return this._hasResp = !0,
                     null != a.error || 1 != a.status ? void this.dispatch({
-                        type: PartnerConstant.OPEN_API_ERROR
-                    }) : void this.dispatch({
-                        type: PartnerConstant.OPEN_API_OK,
-                        data: a
-                    })
+                            type: PartnerConstant.OPEN_API_ERROR
+                        }) : void this.dispatch({
+                            type: PartnerConstant.OPEN_API_OK,
+                            data: a
+                        })
             }
         };
         var BuildVideoInfo = {},
@@ -2149,10 +2149,10 @@
                 }
                 if (YK.config.events && YK.config.events.onSwitchFullScreen) {
                     c.indexOf("in") === -1 ? (this._fullflag = !1, this._btnb.className = c.replace(/out/g, "in"), this.player.controls.hideShowListBtn(), this.player._reporter.sendUserActionReport("xexfs", b), this.player.adjustVideoRatio(1), this.dispatch({
-                        type: "exitfullscreen"
-                    })) : (this._fullflag = !0, this._btnb.className = c.replace(/in/g, "out"), this.player.controls.showShowListBtn(), this.player._reporter.sendUserActionReport("xenfs", b), this.player.adjustVideoRatio(), this.dispatch({
-                        type: "enterfullscreen"
-                    }));
+                            type: "exitfullscreen"
+                        })) : (this._fullflag = !0, this._btnb.className = c.replace(/in/g, "out"), this.player.controls.showShowListBtn(), this.player._reporter.sendUserActionReport("xenfs", b), this.player.adjustVideoRatio(), this.dispatch({
+                            type: "enterfullscreen"
+                        }));
                     var e = YK.config.events.onSwitchFullScreen;
                     return void e(a, c)
                 }
@@ -2328,8 +2328,8 @@
                 var b = this._panel,
                     c = this._language.className;
                 c.indexOf("pressed") === -1 ? (this._language.className += " pressed", b.style.display = "block", this.dispatch({
-                    type: "settingshow"
-                }), this.player._reporter.sendUserActionReport("xcl", "c")) : (this.hide(), this.player._reporter.sendUserActionReport("xhl", "c")),
+                        type: "settingshow"
+                    }), this.player._reporter.sendUserActionReport("xcl", "c")) : (this.hide(), this.player._reporter.sendUserActionReport("xhl", "c")),
                     this.dispatch(a)
             },
             switchLanguage: function (a) {
@@ -2499,17 +2499,17 @@
                     e = this;
                 if (window.response = this, c.trial || (this._tryBtn.style.display = "none"), c.error) c.error.code == -307 && (c.video.type.indexOf("fee") != -1 ? b = -307 : c.video.type.indexOf("channel_vip") == -1 && c.error.code != -309 || (b = -308)),
                     c.error.code == -309 || c.error.code == -308 || b == -308 ? (this.vipType = "channelVip", this.payInfoStartTime = (new Date).getTime(), YKP.sendLog("getcvippayinfo_h5", 0, 0), d = this.cvipurl + "?own_channel_id=" + c.fee.own_channel_id + "&video_id=" + c.id + "&callback=response.channelResponse", crossDomain(d), setTimeout(function () {
-                        e.payInfoOk || YKP.sendLog("getcvippayinfo_h5", 408, 10)
-                    }, 1e4)) : c.error.code != -301 && b != -307 || (this.payInfoStartTime = (new Date).getTime(), YKP.sendLog("getvippayinfo_h5", 0, 0), d = this.vipurl + "&video_id=" + c.id + "&callback=response.vipResponse", crossDomain(d), setTimeout(function () {
-                        e.payInfoOk || YKP.sendLog("getvippayinfo_h5", 408, 10)
-                    }, 1e4));
+                            e.payInfoOk || YKP.sendLog("getcvippayinfo_h5", 408, 10)
+                        }, 1e4)) : c.error.code != -301 && b != -307 || (this.payInfoStartTime = (new Date).getTime(), YKP.sendLog("getvippayinfo_h5", 0, 0), d = this.vipurl + "&video_id=" + c.id + "&callback=response.vipResponse", crossDomain(d), setTimeout(function () {
+                            e.payInfoOk || YKP.sendLog("getvippayinfo_h5", 408, 10)
+                        }, 1e4));
                 else {
                     if (!c.pay || c.pay.can_play) return;
                     c.video.type.indexOf("fee") != -1 ? (this.payInfoStartTime = (new Date).getTime(), YKP.sendLog("getvippayinfo_h5", 0, 0), d = this.vipurl + "&video_id=" + c.id + "&callback=response.vipResponse", crossDomain(d), setTimeout(function () {
-                        e.payInfoOk || YKP.sendLog("getvippayinfo_h5", 408, 10)
-                    }, 1e4)) : c.video.type.indexOf("channel_vip") != -1 && (this.vipType = "channelVip", this.payInfoStartTime = (new Date).getTime(), YKP.sendLog("getcvippayinfo_h5", 0, 0), d = this.cvipurl + "?own_channel_id=" + c.fee.own_channel_id + "&video_id=" + c.id + "&callback=response.channelResponse", crossDomain(d), setTimeout(function () {
-                        e.payInfoOk || YKP.sendLog("getcvippayinfo_h5", 408, 10)
-                    }, 1e4))
+                            e.payInfoOk || YKP.sendLog("getvippayinfo_h5", 408, 10)
+                        }, 1e4)) : c.video.type.indexOf("channel_vip") != -1 && (this.vipType = "channelVip", this.payInfoStartTime = (new Date).getTime(), YKP.sendLog("getcvippayinfo_h5", 0, 0), d = this.cvipurl + "?own_channel_id=" + c.fee.own_channel_id + "&video_id=" + c.id + "&callback=response.channelResponse", crossDomain(d), setTimeout(function () {
+                            e.payInfoOk || YKP.sendLog("getcvippayinfo_h5", 408, 10)
+                        }, 1e4))
                 }
                 if (null == a.data.trial && debug.log("not pay"), a.data.trial) {
                     if (this.player.video.pause(), "episodes" == a.data.trial.type) return;
@@ -2742,8 +2742,8 @@
                 var b = this.panel,
                     c = this.playRate.className;
                 c.indexOf("pressed") === -1 ? (this.playRate.className += " pressed", b.style.display = "block", this.player._reporter.sendUserActionReport("xcra", "c"), this.dispatch({
-                    type: "settingshow"
-                })) : (this.hide(), this.player._reporter.sendUserActionReport("xhra", "c")),
+                        type: "settingshow"
+                    })) : (this.hide(), this.player._reporter.sendUserActionReport("xhra", "c")),
                     this.dispatch(a)
             },
             switchRate: function (a) {
@@ -2972,8 +2972,8 @@
                 var b = this._panel,
                     c = this._quality.className;
                 c.indexOf("pressed") === -1 ? (this._quality.className += " pressed", b.style.display = "block", this.player._reporter.sendUserActionReport("xcq", "c"), this.dispatch({
-                    type: "settingshow"
-                })) : (this.hide(), this.player._reporter.sendUserActionReport("xhq", "c")),
+                        type: "settingshow"
+                    })) : (this.hide(), this.player._reporter.sendUserActionReport("xhq", "c")),
                     this.dispatch(a)
             },
             switchQuality: function (a) {
@@ -3523,17 +3523,17 @@
                 var a = null,
                     b = this.player.video.src;
                 b.indexOf("m3u8") != -1 ? (a = {
-                    flv: 0,
-                    flvhd: 0,
-                    mp4: 1,
-                    hd2: 2,
-                    hd3: 3
-                }, b = YK.defaultVideoType) : a = {
-                    "030020": 4,
-                    "030004": 0,
-                    "030008": 1,
-                    "030080": 3
-                };
+                        flv: 0,
+                        flvhd: 0,
+                        mp4: 1,
+                        hd2: 2,
+                        hd3: 3
+                    }, b = YK.defaultVideoType) : a = {
+                        "030020": 4,
+                        "030004": 0,
+                        "030008": 1,
+                        "030080": 3
+                    };
                 for (var c in a) if (b.indexOf(c) !== -1) return a[c];
                 return 0
             },
@@ -4121,9 +4121,9 @@
                     this._adreporter.sendSUE(),
                     this.checkVTVC(this._addata.curnum + 1),
                     this._addata.curnum < this._addata.urls.length - 1 ? void this.onMiddleAdEnded(a) : (this.removeAdEvent(), this._adplugin.hide(), this.clearTimer(), this.dispatch({
-                        type: ADConstant.AD_END,
-                        data: !0
-                    }), void LocalStorage.appendItem("phase", "adend"))
+                            type: ADConstant.AD_END,
+                            data: !0
+                        }), void LocalStorage.appendItem("phase", "adend"))
             },
             onMiddleAdEnded: function (a) {
                 debug.log("onMiddleAdEnded"),
@@ -4458,13 +4458,13 @@
                     this.reportTime("adinfo"),
                     this._isPauseAdInfoOk = !0,
                     null == a || null == a.VAL || 0 == a.VAL.length || 10 != a.P ? void this.dispatch({
-                        type: ADConstant.PAUSE_AD_INFO_ERROR
-                    }) : (debug.log("<b>pause ad len = " + a.VAL.length + "</b>"), void this.dispatch({
-                        type: ADConstant.PAUSE_AD_INFO_OK,
-                        data: {
-                            info: a
-                        }
-                    }))
+                            type: ADConstant.PAUSE_AD_INFO_ERROR
+                        }) : (debug.log("<b>pause ad len = " + a.VAL.length + "</b>"), void this.dispatch({
+                            type: ADConstant.PAUSE_AD_INFO_OK,
+                            data: {
+                                info: a
+                            }
+                        }))
             },
             frontAd: function () {
                 this._param.fu = this.player.controls.fullscreenPanel.fullFlag() ? 1 : 0,
@@ -4828,8 +4828,8 @@
                 var b = this.video.currentTime;
                 return !YKP.isUC && this._adTime < this._addata.VAL[0].AL && b - this._adTime > 3 && (this.video.currentTime = this._adTime, this.video.play()),
                     YKP.isUC && b > this._addata.VAL[0].AL ? void this.onAdEnded() : this._adTime > this._addata.VAL[0].AL ? void this.onAdEnded() : (YK.hide(this.controls.buttons.loading), this._adBegin = !0, YK.hide(this.controls.buttons.loading), this._adplugin.setLeftSecond(this.leftSecond()), this._adreporter.sendSU(this.video.currentTime), this._adreporter.sendUnitedVTVC(this.video.currentTime), void(this._adfirsttu || (this._adplugin.show(), this._adreporter.sendSUS(), this._adfirsttu = !0, this._adplugin.reportTime("advideo"), 0 === this._adplugin.SKIP && this.dispatch({
-                        type: ADConstant.UGLY_CLOSE_AD_HINT
-                    }))))
+                                type: ADConstant.UGLY_CLOSE_AD_HINT
+                            }))))
             },
             onAdLoadedMetaData: function (a) {
                 this._adBegin = !0
@@ -6264,8 +6264,8 @@
                 processError: function (a, b, c) {
                     var d = a.data.error.code;
                     return d == -301 ? (a.data.trial = {
-                        time: 0
-                    }, !1) : (YK.hide(YK.get(".x-video-poster")), this.feedbackPanel = new FeedBackPanel(this, a), !0)
+                            time: 0
+                        }, !1) : (YK.hide(YK.get(".x-video-poster")), this.feedbackPanel = new FeedBackPanel(this, a), !0)
                 },
                 mpieceReport: function () {
                     if ("mp4" == YK.config.content && YK.videoInfo._videoSegsDic && null != YK.videoInfo._videoSegsDic.streams[YK.defaultLanguage][YK.defaultVideoType] && YK.videoInfo._videoSegsDic.streams[YK.defaultLanguage][YK.defaultVideoType].length > 1) {
@@ -6384,8 +6384,8 @@
                             e = d.length > 0 ? d.end(0) : 0;
                         YK.unitedTag && (a += YK.unitedTag.offset, e += YK.unitedTag.offset),
                             1 == d.length && a < e ? (debug.log("seek ct = " + a + ",end = " + d.end(0)), this.seekTo(a, b)) : (this.controls.onWaiting(), this.switchTimer = setTimeout(function () {
-                                c.seek(a, b)
-                            }, 100))
+                                    c.seek(a, b)
+                                }, 100))
                     } else debug.log("multi seek"),
                         this.multiSeekTo(a)
                 },
