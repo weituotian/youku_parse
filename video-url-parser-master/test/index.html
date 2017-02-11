@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>测试用例</title>
+    <script src="../src/video-url-parser.js"></script>
+    <script src="../node_modules/video-provider-youku.com/index.js"></script>
+    <script src="../src/cn-video-url-parser.js"></script>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            color: #555;
+            background-color: #f5f5f5;
+        }
+        
+        #mocha {
+            font: 20px/1.8 "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        
+        #mocha .test pre {
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mocha"></div>
+    <script>
+        mocha.setup('bdd')
+    </script>
+    <script src="../test/video-url-parser.js"></script>
+    <script src="../test/cn-video-url-parser.js"></script>
+    <script>
+        mocha.checkLeaks();
+        mocha.run();
+    </script>
+</body>
+
+</html>
