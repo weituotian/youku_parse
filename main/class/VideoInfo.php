@@ -14,7 +14,7 @@
 class VideoInfo
 {
 
-    private $data;
+    public $data;
     private $vid;
     private $sid;
     private $token;
@@ -30,14 +30,25 @@ class VideoInfo
         $this->initSid_Token();
     }
 
+    public function setSid_Token($sid, $token)
+    {
+        $this->sid = $sid;
+        $this->token = $token;
+    }
+
     private function initSid_Token()
     {
         require_once "Ep.php";
 
+//encrypt_string每次请求都会变化
+//        $this->data->security->encrypt_string = "NwXYSAUWJrzf0PHJ8OJxBtGguBs01w3OWhY=";
+//        $this->data->security->encrypt_string = "NwXYSAUWJ7rZ0vXJ9OJxV4Xzuxc71w3OWBY=";
+//        $this->data->security->encrypt_string = "NwXYSAUWJ7ja0PDC9OJxBoT9vRFv1w3OWBY=";
+
         $arr = Ep::decode($this->data->security->encrypt_string);
         $this->sid = $arr[0];
         $this->token = $arr[1];
-        var_dump($this->sid, $this->token);
+//        var_dump($this->sid, $this->token);
     }
 
     private function InitData()
@@ -50,10 +61,18 @@ class VideoInfo
         $callback = "call";
         $url = "http://play-ali.youku.com/play/get.json?vid={$this->vid}&ct=12&callback={$callback}";
 
-        $request = Requests::get($url, array("Accept" => "application/json"));
+        $referer = "http://m.youku.com/video/id_{$this->vid}.html";
+        $header = array();
+        $header['Accept'] = "application/json";
+        $header['Referer'] = $referer;
+        $header['User-Agent'] = Constants::UserAgent;
+        $header['Host'] = Constants::Host;
+        $header['Cookie'] = Constants::Cookie;
+
+        $request = Requests::get($url, $header);
 
         $body = $request->body;
-        var_dump($body);
+//        var_dump($body);
 
         $regex = "/{$callback}\((.*)\)/i";
 
@@ -100,22 +119,22 @@ class VideoInfo
         $videoUrls = array();
 
 
-
         $segs = $stream->segs;
         //遍历分段
-        for ($index = 0; $index < count($segs);$index++) {
+        for ($index = 0; $index < count($segs); $index++) {
             $seg = $segs[$index];
 
             //基本url
             $url = "//k.youku.com/player/getFlvPath/sid/";
             $url .= $this->sid . '_' . dechex($index);
-            $url .= '/st/'.$hdName[$stream->stream_type];
+            $url .= '/st/' . $hdName[$stream->stream_type];
             $url .= '/fileid/';
             $url .= $seg->fileid;
             $url .= "?K=" . $seg->key;
             $url .= "&hd=" . $Hd[$stream->stream_type];//流类型
             $url .= "&myp=0&ts=" . ($stream->milliseconds_video / 1000);//总时间,单位s
-            $url .= "&ypp=0" . "&ymovie=1"; // （"&ymovie=1"或者&ypremium=1）,
+            $url .= "&ypp=0";
+//            $url .= "&ymovie=1"; // （"&ymovie=1"或者&ypremium=1）,
             $url .= "&ep=" . Ep::generate($this->sid, $seg->fileid, $this->token);//(加密算法),
             $url .= "&ctype=12";
             $url .= "&ev=1";

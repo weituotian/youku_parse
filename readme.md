@@ -21,7 +21,13 @@ require_once "class/VideoInfo.php";
 $videoInfo = new VideoInfo($vid);
 
 $streams = $videoInfo->getStreams();
-$urls = $videoInfo->getVideoSrcs($streams[0]);
+foreach ($streams as $stream){
+    if ($stream->stream_type=="3gphd") {//取flvhd流的视频
+        $urls = $videoInfo->getVideoSrcs($stream);
+        break;
+    }
+}
+var_dump($urls);
 ```
 - $vid是优酷视频id
 测试的视频网址是 [http://m.youku.com/video/id_XMTQyODc1MzcyMA==.html](http://m.youku.com/video/id_XMTQyODc1MzcyMA==.html)
@@ -29,9 +35,20 @@ $urls = $videoInfo->getVideoSrcs($streams[0]);
 - $videoInfo->getStreams()
 返回一个视频流数组,一个视频流对象对应接口返回的json,具体可以参考 [原理](#principle),优酷的视频流有flv, mp4hd, mp4hd2, mp4hd3, 3gphd, 3gp
 
-- $urls = $videoInfo->getVideoSrcs($streams[0])
+- $urls = $videoInfo->getVideoSrcs($stream)
 传入视频流对象,返回一个url数组,包含了所有视频分段,然后你就可以用这些视频地址了
 
+-- 以上例子的作用是找到视频流为3gphd的视频,提取它所有分段的url
+
+## 其它配置
+- main/Constants.php 可以修改请求json时候的Host, UserAgent, Cookie等,
+其中Cookies可以复制你的浏览器访问优酷时的cookie,cookie对获得正确的json是很有作用的,否则提取的视频会提示403Forbidden
+
+## 例子 main/example1.php
+
+![](preview/GIF.gif)
+
+![](preview/png1.png)
 
 ## <span id="principle">原理</span>
 - 优酷接口:获取视频json的url [http://play-ali.youku.com/play/get.json?vid=XMTQyODc1MzcyMA==&ct=12&callback=asd](http://play-ali.youku.com/play/get.json?vid=XMTQyODc1MzcyMA==&ct=12&callback=asd)
@@ -237,7 +254,7 @@ $urls = $videoInfo->getVideoSrcs($streams[0]);
 
 - 获取视频地址的接口
   优酷的js代码在 [http://static.youku.com/h5/player/embed/unifull/unifull_.js](http://static.youku.com/h5/player/embed/unifull/unifull_.js)
-  
+
 ```
 相关:
 YKP.userCache{
