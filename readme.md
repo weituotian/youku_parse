@@ -11,7 +11,7 @@
 - parse  (暂时未用到)
 - test  (一些简单的测试)
 - video-url-parser-master(参考了一些代码)
-- youkuvod-master(参考了一些代码)\
+- youkuvod-master(参考了一些代码)
 
 ## 使用方法
 ```
@@ -22,7 +22,7 @@ $videoInfo = new VideoInfo($vid);
 
 $streams = $videoInfo->getStreams();
 foreach ($streams as $stream){
-    if ($stream->stream_type=="3gphd") {//取flvhd流的视频
+    if ($stream->stream_type=="3gphd") {//取3gphd流的视频
         $urls = $videoInfo->getVideoSrcs($stream);
         break;
     }
@@ -38,7 +38,7 @@ var_dump($urls);
 - $urls = $videoInfo->getVideoSrcs($stream)
 传入视频流对象,返回一个url数组,包含了所有视频分段,然后你就可以用这些视频地址了
 
--- 以上例子的作用是找到视频流为3gphd的视频,提取它所有分段的url
+- 以上例子的作用是找到视频流为3gphd的视频,提取它所有分段的url
 
 ## 其它配置
 - main/Constants.php 可以修改请求json时候的Host, UserAgent, Cookie等,
@@ -49,6 +49,10 @@ var_dump($urls);
 ![](preview/GIF.gif)
 
 ![](preview/png1.png)
+
+## 例子 main/example2.php
+
+![](preview/png2.png)
 
 ## <span id="principle">原理</span>
 - 优酷接口:获取视频json的url [http://play-ali.youku.com/play/get.json?vid=XMTQyODc1MzcyMA==&ct=12&callback=asd](http://play-ali.youku.com/play/get.json?vid=XMTQyODc1MzcyMA==&ct=12&callback=asd)

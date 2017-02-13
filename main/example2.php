@@ -2,24 +2,39 @@
 /**
  * Created by PhpStorm.
  * User: 嘉辉
- * Date: 2017/2/12
- * Time: 10:11
+ * Date: 2017/2/11
+ * Time: 13:30
  */
+header("Content-Type: text/html; charset=UTF-8");
 
 include_once "Constants.php";
 define('BASE_PATH', str_replace('\\', '/', realpath(dirname(__FILE__) . '/')) . "/");
 
 
-$vid = isset($_GET['vid']) ? $_GET['vid'] : "";
-$streams = array();
+//视频id
+$vid = "";
+
+$url = isset($_GET['url']) ? $_GET['url'] : "";
+if ($url != "") {
+    $regex = "/.*?id_(.*)?\.html\?.*?/i";
+    if (preg_match($regex, $url, $matches)) {
+        $vid = $matches[1];
+        var_dump($vid);
+    }
+}
+
+$urls = array();
 if ($vid != "") {
     require_once "class/VideoInfo.php";
-
     $videoInfo = new VideoInfo($vid);
 
     $streams = $videoInfo->getStreams();
+
     foreach ($streams as $stream) {
-        $stream->urls = $videoInfo->getVideoSrcs($stream);
+        if ($stream->stream_type == "3gphd") {//取3gphd流的视频
+            $urls = $videoInfo->getVideoSrcs($stream);
+            break;
+        }
     }
 
 }
@@ -49,12 +64,12 @@ if ($vid != "") {
     <form action="" method="get" class="form-horizontal" role="form">
 
         <div class="form-group">
-            <label for="" class="col-sm-2 control-label">优酷视频id</label>
+            <label for="source" class="col-sm-2 control-label">优酷视频url</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" name="vid" id="source" value="XMTQyODc1MzcyMA==">
+                <input type="text" class="form-control" name="url" id="source" value="<?php echo $url; ?>">
             </div>
             <div class="col-sm-2">
-                <button type="submit" class="btn btn-primary" id="query">查询</button>
+                <button type="submit" class="btn btn-primary" id="query">解析</button>
             </div>
         </div>
 
@@ -62,24 +77,16 @@ if ($vid != "") {
 
     <div class="row">
 
-        <? foreach ($streams as $stream): ?>
-            <div class="table-responsive">
-                <h4>流类型:<?php echo $stream->stream_type?> 宽:<?php echo $stream->width?> 高:<?php echo $stream->height?></h4>
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>url</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($stream->urls as $url) {
-                        echo "<tr><td>";
-                        $show_url = substr($url, 0, 100)."...";
-                        echo "<a href='{$url}' target='_blank'>{$show_url}</a>";
-                        echo "</td></tr>";
-                    } ?>
-                    </tbody>
-                </table>
+        <? foreach ($urls as $url): ?>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-sm-12 text-center">
+                        <video src="<?php echo $url; ?>" controls></video>
+                    </div>
+                </div>
             </div>
         <? endforeach; ?>
 

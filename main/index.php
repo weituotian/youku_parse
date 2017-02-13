@@ -14,9 +14,9 @@ define('BASE_PATH', str_replace('\\', '/', realpath(dirname(__FILE__) . '/')) . 
 //视频id
 //$vid = "XMTQyODc1MzcyMA==";
 //$vid = "XMTg5MzgyOTAxMg==";
-$vid = "XMTczMzE5MTkwMA==";
+//$vid = "XMTczMzE5MTkwMA==";
 //$vid = "XMjQ5Mzk2NDE1Ng==";
-//$vid = "XMjUwNzI4MDA3Mg==";
+$vid = "XMjUwNzI4MDA3Mg==";
 
 
 require_once "class/VideoInfo.php";
