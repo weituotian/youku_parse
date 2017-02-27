@@ -44,15 +44,17 @@ var_dump($urls);
 - main/Constants.php 可以修改请求json时候的Host, UserAgent, Cookie等,
 其中Cookies可以复制你的浏览器访问优酷时的cookie,cookie对获得正确的json是很有作用的,否则提取的视频会提示403Forbidden
 
-## 例子 main/example1.php
+## 例子 main/example1.php (分析下载链接)
 
 ![](preview/GIF.gif)
 
 ![](preview/png1.png)
 
-## 例子 main/example2.php
+## 例子 main/example2.php (视频去广告播放)
 
 ![](preview/png2.png)
+
+## 例子 main/example3.php (视频去广告播放，videoJs分段)
 
 ## <span id="principle">原理</span>
 - 优酷接口:获取视频json的url [http://play-ali.youku.com/play/get.json?vid=XMTQyODc1MzcyMA==&ct=12&callback=asd](http://play-ali.youku.com/play/get.json?vid=XMTQyODc1MzcyMA==&ct=12&callback=asd)

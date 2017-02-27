@@ -51,7 +51,7 @@ if ($vid != "") {
         <div class="form-group">
             <label for="" class="col-sm-2 control-label">优酷视频id</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" name="vid" id="source" value="XMTQyODc1MzcyMA==">
+                <input type="text" class="form-control" name="vid" id="source" value="<?php echo $vid;?>" placeholder="XMTQyODc1MzcyMA==">
             </div>
             <div class="col-sm-2">
                 <button type="submit" class="btn btn-primary" id="query">查询</button>
