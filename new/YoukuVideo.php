@@ -12,28 +12,25 @@ class YoukuVideo
     public $vid;
     public $ccode;
     public $cna;
-
+    public $request;
 
     /**
      * YoukuVideo constructor.
      */
-    public function __construct()
+    public function __construct($vid)
     {
-        $this->vid = 'XMzQ3ODQ0OTA2MA==';
-
-        // header('Content-Type', 'content="text/html; charset=utf-8"');
-        echo '<meta charset="utf-8">';
+        $this->vid = $vid;
 
         $cna = $this->fetch_cna();
-        $cna = '2V06EwrKJjICAbczegzDzfoV';
+        //$cna = '2V06EwrKJjICAbczegzDzfoV';
 
         $params = array(
             'vid' => $this->vid,
             'ccode' => '0502',
             'client_ip' => '192.168.1.1',
-            'utid' => $cna,
+            'utid' => urlencode($cna),
             'client_ts' => intval(time()),
-            'ckey' => 'DIl58SLFxFNndSV1GFNnMQVYkx1PP5tKe1siZu/86PR1u/Wh1Ptd+WOZsHHWxysSfAOhNJpdVWsdVJNsfJ8Sxd8WKVvNfAS8aS8fAOzYARzPyPc3JvtnPHjTdKfESTdnuTW6ZPvk2pNDh4uFzotgdMEFkzQ5wZVXl2Pf1/Y6hLK0OnCNxBj3+nb0v72gZ6b0td+WOZsHHWxysSo/0y9D2K42SaB8Y/+aD2K42SaB8Y/+ahU+WOZsHcrxysooUeND',
+            'ckey' => 'DIl58SLFxFNndSV1GFNnMQVYkx1PP5tKe1siZu%2F86PR1u%2FWh1Ptd%2BWOZsHHWxysSfAOhNJpdVWsdVJNsfJ8Sxd8WKVvNfAS8aS8fAOzYARzPyPc3JvtnPHjTdKfESTdnuTW6ZPvk2pNDh4uFzotgdMEFkzQ5wZVXl2Pf1%2FY6hLK0OnCNxBj3%2Bnb0v72gZ6b0td%2BWOZsHHWxysSo%2F0y9D2K42SaB8Y%2F%2BaD2K42SaB8Y%2F%2BahU%2BWOZsHcrxysooUeND%20HTTP%2F1.1',
         );
 
         $cookies = array(
@@ -46,14 +43,15 @@ class YoukuVideo
             'Host' => 'ups.youku.com'
         );
 
-        $request = new Request();
-        $request->http_get('https://ups.youku.com/ups/get.json', $params, $cookies);
+        $this->request = new Request();
+        $this->request->http_get('https://ups.youku.com/ups/get.json', $params, $cookies, $headers);
 
-        echo($request->info['request_header']);
+        // debug
+        /*echo($request->info['request_header']);
         echo '<br>';
         echo $request->full_url;
         echo '<br>';
-        echo $request->body;
+        echo $request->body;*/
     }
 
     public function fetch_cna()
@@ -88,6 +86,11 @@ class YoukuVideo
         cna = match1(cookies, "cna=([^;]+)")
         return cna if cna else "oqikEO1b7CECAbfBdNNf1PM1"*/
     }
+
+    public function get_json()
+    {
+        return json_decode($this->request->body, true);
+    }
 }
 
 class Request
@@ -109,7 +112,8 @@ class Request
             'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             'Accept-Language' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3',
             'Accept-Encoding' => 'gzip, deflate',
-            'User-Agent' => "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36"
+            'cache-control' => 'no-cache',
+            'User-Agent' => "Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.2.1"
         );
         $array_merge = array_merge($defaults, $headers);
         return $array_merge;
@@ -134,6 +138,7 @@ class Request
         curl_setopt($oCurl, CURLINFO_HEADER_OUT, TRUE);//请求头信息
         curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1);
         // curl_setopt($oCurl, CURLOPT_NOBODY, TRUE);// 不获取body
+        curl_setopt($oCurl, CURLOPT_ENCODING, "");
 
         // 参数
         if (is_array($params)) {
